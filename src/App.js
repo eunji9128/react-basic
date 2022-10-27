@@ -61,7 +61,7 @@ function App() {
               {
                 shoes.map(function(a,i){
                   return (
-                  <Card key={i} a = {a} i = {i}></Card>
+                  <Card key={i} a = {a} i = {i} navigate = {navigate} ></Card>
                   )
                 })
               }        
@@ -103,7 +103,10 @@ function App() {
 function Card(props) {
   return (
     <Col sm={4}>
-      <img src={'https://codingapple1.github.io/shop/shoes' + (props.i+1) + '.jpg'} width = '80%' />
+      <img 
+        src={'https://codingapple1.github.io/shop/shoes' + (props.i+1) + '.jpg'} 
+        onClick={()=>{ props.navigate('/detail/'+props.a.id)}}
+        width = '80%' />
       <h4>{props.a.title}</h4>
       <p>{props.a.price}</p>
     </Col>
