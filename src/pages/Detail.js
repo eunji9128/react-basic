@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from './../store/stockSlice'
@@ -8,6 +8,7 @@ function Detail(props) {
 
     let state = useSelector((state)=>{return state})
     let dispatch = useDispatch()
+    let navigate = useNavigate()
 
     let [pop, setPop] = useState(true);
     let [num, setNum] = useState(false);
@@ -46,8 +47,9 @@ function Detail(props) {
                     <p>{shoe.content}</p>
                     <p>{shoe.price}</p>
                     <button className="btn btn-danger" onClick={()=>{
-                        console.log(shoe)
                         dispatch(addToCart(shoe))
+                        alert('장바구니에 추가되었습니다!')
+                        navigate('/cart')
                     }}>주문하기</button> 
                 </div>
             </div>
