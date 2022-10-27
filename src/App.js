@@ -3,16 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import data from './data';
+import Main from './pages/Main'
 import Detail from './pages/Detail'
+import Cart from './pages/Cart'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios'
-import Cart from './pages/Cart'
 import { useQuery } from '@tanstack/react-query'
 
-let count = 0;
+
 
 function App() {
 
+  let [shoes, setShoes] = useState(data);
+  let navigate = useNavigate();
   let result = useQuery(['query_data'], ()=>{
     return(
       axios.get('https://codingapple1.github.io/userdata.json')
@@ -27,15 +30,11 @@ function App() {
       )}
   },[])
 
-
-  let [shoes, setShoes] = useState(data);
-  let navigate = useNavigate();
-
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Shop</Navbar.Brand>
+          <Navbar.Brand onClick={() => {navigate('/')}}>Shop</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -53,38 +52,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={
-          <>  
-            <div className='main_bg'></div>
-
-            <Container>
-            <Row>
-              {
-                shoes.map(function(a,i){
-                  return (
-                  <Card key={i} a = {a} i = {i} navigate = {navigate} ></Card>
-                  )
-                })
-              }        
-            </Row>
-            </Container>
-            
-            {  count < 2 ?
-              <button onClick={() => {
-                count = count + 1;
-                axios.get("https://codingapple1.github.io/shop/data" + (count+1) + ".json")
-                  .then((result) => {
-                    let copy = [...shoes];
-                    copy = copy.concat(result.data);  
-                    setShoes(copy);
-                  })
-                  .catch(() => {
-                    console.log('failed')
-                  })
-              }}>더 보기</button>
-              : null
-            }
-
-          </>
+          <Main shoes = {shoes} setShoes = {setShoes} navigate = {navigate} ></Main>
         }/>
 
         <Route path='/detail/:id' element={
@@ -100,18 +68,7 @@ function App() {
   );
 }
 
-function Card(props) {
-  return (
-    <Col sm={4}>
-      <img 
-        src={'https://codingapple1.github.io/shop/shoes' + (props.i+1) + '.jpg'} 
-        onClick={()=>{ props.navigate('/detail/'+props.a.id)}}
-        width = '80%' />
-      <h4>{props.a.title}</h4>
-      <p>{props.a.price}</p>
-    </Col>
-  );
-}
+
 
 // function Event() {
 //   return (
