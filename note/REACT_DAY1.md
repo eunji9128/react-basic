@@ -35,7 +35,8 @@ function App() {
         - html 에서는 font-size 처럼 dash 를 사용했지만, JS에서 dash는 minus로 동작하기 때문에 camelCase 로 사용해야 한다
     4. 메인 페이지 작성 시 function App() { return (~~)} 처럼 return 안에 코드 작성해야 하며, return 에서 병렬 2개 이상의 태그는 반환이 안된다 (ex. return(<div>1</div> <div>2</div>))
 
-## State
+## 자료 저장
+### State와 변수
 ```js
 import { useState } from 'react';
 import './App.css';
@@ -61,4 +62,8 @@ function App(){
 - State는 변수와 다르게 값이 변하였을 때 state를 사용한 html 값을 자동으로 재렌더링 해준다(JS는 변수 값이 변했을 때 html 내용도 변경해주어야 한다는 코드를 별도로 작성해야 함) > 따라서 자주 데이터 변경이 예상되고 UI에 자동 반영이 필요한 요소는 State에 저장해 사용하면 좋다
 - State 사용: let [변수명, 변경함수명] = useState('변수값')
     - (참고) Distructuring 문법: let [a, b] = [1, 2]라고 선언할 경우 a=1, b=2를 할당해주는 문법이다
+
+
+### Warning message 제거
+- 터미널에서 선언했지만 사용되지 않은 변수, 라이브러리 등을 알려주는 warning message가 뜨는데, 이를 없애고 싶을 때는 스트립트 첫째줄에 /* eslint-disable */ 을 써주면 된다
 
