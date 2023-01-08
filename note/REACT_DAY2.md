@@ -164,6 +164,7 @@ function Modal(){
     - JS에서는 html class를 변경하는 방식으로 동적 UI를 구현했다면, react에서는 상태 변수를 이용해 html 렌더링을 조작하는 방식이다
 - modal state를 만들어 동적 상태를 저장해놓고(true = visible, false = invisible 등), modal == true 일 경우에만 <Modal/> component를 출력해주면 된다
 - 다만 JSX 안에서 {} 안에 JS 문법을 사용할 때 if, for 등 문장(statement)를 사용할 수 없고, 식(expression)의 형태인 삼항연산자(Condition oprator)를 사용할 수 있다
+    - (참고) JS 문장을 사용하고 싶을 땐 JSX 영역이 아닌 function App(){} 바깥에서 사용하면 된다
 > 문(statement)과 식(expression)의 차이
     - 식은 값을 만들어 내며 다른 식의 하위 요소로 계산에 참여할 수 있는 반면 문은 자신을 둘러싸고 있는 가장 안쪽 블록의 최상위 요소로 존재하며 아무런 값을 만들어 내지 않는다는 차이가 있다
 
@@ -174,5 +175,67 @@ modal === true ? setModal(false) : setModal(true);
 setModal(!modal);
 ```
 - 동적 UI 구현 시 state toggle 을 이용할 때 삼항연산자를 이용해 조건을 붙일 수 있지만, 더 간단하게는 !modal 을 이용해 true > false, false > true로 변경해줄 수 있다
+
+
+## 반복 실행(map, for)
+### map
+```js
+['a','b','c'].map(function(a, i){
+    console.log(a); // a b c 출력(array 값)
+    console.log(i); // 0 1 2 출력(index)
+});
+
+[1,2,3].map(function(){
+    return <div>a</div> // [<div>a</div>, <div>a</div>, <div>a</div>] 출력
+});
+```
+- JS 기본 문법인 map 함수를 사용하면 array의 요소들을 하나씩 반복하여 꺼내 사용/변경할 수 있다
+- return 사용 시 return 값으로 각 array 요소를 변경, 반환해준다
+
+```js
+function App() {
+    let [title, setTitle] = ['title1', 'title2', 'title3'];
+
+    return (
+        {
+            title.map(function(a, i) {
+                return (
+                    <div className="list" key={i}>
+                        <h4>{ title[i] }</h4>
+                        <h4>{ a }</h4>
+                    </div>
+                )
+            })
+        }
+    )
+}
+```
+- map 함수의 특성을 활용하여 html 태그를 title 요소만큼 반복 생성 해줄 수 있으며, title 값을 데이터 바인딩할 수 있다
+- 반복 생성되는 html tag는 고유의 key 값을 갖도록 권장하는데(없을 경우 console warning이 뜸), index i 값을 활용할 수 있다
+
+### for문
+```js
+function App() {
+    var arr = [];
+    let [title, setTitle] = useState(['title1', 'title2', 'title3']);
+
+    for (var i=0; i < title.length; i++) {
+        arr.push(
+            <div className="list">
+                <h4>{title[i]}</h4>
+            </div>
+        )
+    }
+
+    return (
+        { arr }
+    )
+}
+```
+- for문을 사용해 html을 반복 생성하고 싶다면 위와 같이 return() 바깥에서 빈 어레이에 html 구문을 저장한 뒤 어레이를 반환해주면 된다
+
+
+
+
 
 
