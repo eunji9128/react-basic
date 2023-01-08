@@ -34,6 +34,7 @@ function App() {
     3. html에 style 속성 넣을 때는 style={ {obj 자료형} } 사용 > html에서 <div style="color: blue"> 대신 style={ {color: 'blue', fontSize: '30px'} } 로 넣어야 한다
         - html 에서는 font-size 처럼 dash 를 사용했지만, JS에서 dash는 minus로 동작하기 때문에 camelCase 로 사용해야 한다
     4. 메인 페이지 작성 시 function App() { return (~~)} 처럼 return 안에 코드 작성해야 하며, return 에서 병렬 2개 이상의 태그는 반환이 안된다 (ex. return(<div>1</div> <div>2</div>))
+        - (참고) 2개의 병렬 태그 반환이 필요할 경우에는 <div></div> or <></> 로 전체를 묶어 하나의 반환 값으로 만들 수 있다 > 여기서 의미 없는 공 태그인 <></>를 fragment tag라고 부른다
 
 ## 자료 저장
 ### State와 변수
