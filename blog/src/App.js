@@ -6,7 +6,7 @@ function App() {
 
   let [title, setTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
   let [like, setLike] = useState([0,0,0]);
-  let [modal, setModal] = useState(false);
+  let [modal, setModal] = useState([false, 0]);
 
   return (
     <div className="App">
@@ -36,7 +36,12 @@ function App() {
         title.map(function(a, i) {
           return (
             <div className='list' key={i}>
-              <h4>
+              <h4 onClick={() => {
+                var copy = [...modal];
+                copy[0] = !copy[0];
+                copy[1] = i;
+                setModal(copy);
+              }}>
                 { title[i] }
                 <span onClick={() => {
                     var copy = [...like];
@@ -53,7 +58,7 @@ function App() {
       }
 
       {
-        modal === true ? <Modal/> : null
+        modal[0] === true ? <Modal title={title} modal={modal}/> : null
       }
       
 
@@ -61,10 +66,10 @@ function App() {
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
       <div className='modal'>
-        <h4>제목</h4>
+        <h4>{ props.title[props.modal[1]] }</h4>
         <p>날짜</p>
         <p>상세 내용</p>
       </div>
