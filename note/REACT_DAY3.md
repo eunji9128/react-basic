@@ -42,3 +42,42 @@ function Modal(props) {
     - 아무 이름이나 가능하나 대체로 props 사용
 - props 문법은 부모 > 자식에게만 상속되어 사용할 수 있으며, 자식 > 부모 혹은 자식 > 자식 간에는 상속할 수 없다
 
+
+## input
+### input type
+```js
+<input type="text"/>
+<input type="range"/>
+<input type="date"/>
+<input type="number"/>
+<textarea></textarea>
+<select></select>
+```
+- input은 react, JS가 동일하며, 특정 값을 입력 받을 수 있는 input type 속성을 정의할 수 있다
+- 여러 줄의 문장을 입력 받기 위해서는 text area를 사용하면 된다
+- 정해진 option 중 선택하도록 하는 dropdown input 은 select를 사용하면 된다
+
+### input event
+```js
+<input onChange={() => { 실행할 코드 }}>
+<input onInput={() => { 실행할 코드 }}>
+```
+- 사용자가 input 입력할 때마다 특정 코드를 실행하도록 할 수 있다
+- onChange, onInput 모두 입력 마다 코드를 실행하는 이벤트 핸들러이며, 이외에 다양한 이벤트 핸들러가 많다
+
+```js
+<input onChange={(e) => { console.log(e.target.value) }}>
+```
+- 사용자가 input에 입력한 값을 이벤트 파라미터로 받아올 수 있다
+- 이벤트 객체는 JS study 참고
+- 받아 온 입력 값은 변수나 state에 저장해두고 사용하는 것이 편리하다
+
+### 기본 동작 해제, 버블링 해제
+```js
+<button onClick={(e) => {
+    e.preventDefault();
+    e.stopPropagation();
+}}>
+```
+- 기본 동작을 멈추게 해주고, 버블링이 생기지 않게 해준다(JS Study 참고)
+
