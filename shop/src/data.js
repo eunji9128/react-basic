@@ -1,4 +1,4 @@
-let products = [
+let product_data = [
     {
         id: 0,
         title: "White and Black",
