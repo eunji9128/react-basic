@@ -1,7 +1,11 @@
 import './App.css';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
+import product_data from './data.js';
+import { useState } from 'react';
 
 function App() {
+  let [products, setProducts] = useState(product_data);
+
   return (
     <div className="App">
       {/* navbar */}
@@ -22,26 +26,26 @@ function App() {
       {/* product display */}
       <Container>
         <Row>
-          <Col>
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%" />
-            <h4>상품명</h4>
-            <p>상품 정보</p>
-          </Col>
-          <Col>
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%" />
-            <h4>상품명</h4>
-            <p>상품 정보</p>
-          </Col>
-          <Col>
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" />
-            <h4>상품명</h4>
-            <p>상품 정보</p>
-          </Col>
+          <List products={products} />
         </Row>
       </Container>
     </div>
 
   );
+}
+
+function List(props) {
+  return (
+    props.products.map(function (data, i) {
+      return (
+        <Col key={i}>
+          <img src={`https://codingapple1.github.io/shop/shoes${data.id + 1}.jpg`} width="80%" />
+          <h4>{data.title}</h4>
+          <p>{data.content}</p>
+        </Col>
+      )
+    })
+  )
 }
 
 export default App;
