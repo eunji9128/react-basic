@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import product_data from './data.js';
 import { useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
+import Detail from './detail.js';
 
 function App() {
   let [products, setProducts] = useState(product_data);
@@ -35,7 +36,7 @@ function App() {
             </Container>
           </>
         } />
-        <Route path='/detail' element={<div>상세 페이지</div>} />
+        <Route path='/detail' element={ <Detail/> } />
         <Route path='/about' element={<div>어바웃 페이지</div>} />
       </Routes>
 
