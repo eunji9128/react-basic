@@ -26,5 +26,49 @@ import { b, c } from './export2.js';
 - 즉, export default/import or export {}/import {} 로 사용하면 된다
 
 
+## Browser Router
+### react-router-dom lib
+- 기존에는 여러 페이지를 만들기 위해서는 각 페이지마다 html 파일을 만들면 됐었지만, react 는 하나의 html 파일에서 html tag를 다르게 재랜더링해 보여주는 방식이기 때문에 별도의 라우팅 라이브러리가 필요하다
+- react-router-dom 라이브러리 홈페이지에서 설치 방법을 찾을 수 있다
+    - npm install react-router-dom@6
+
+```js
+// (index.js file)
+import { BrowserRouter } from 'react-router-dom';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>
+);
+```
+- 설치 후에는 위와 같이 index.js 에서 BrowserRouter import를 해준 뒤, <App /> component를 <BrowserRouter> component로 감싸 주어야 한다
+
+```js
+// (App.js file)
+import { Routes, Route, Link } from 'react-router-dom';
+
+function App(){
+    return (
+        <>
+            <Link to='/'>홈</Link>
+            <Link to='/detail'>상세 페이지</Link>
+
+            <Routes>
+                <Route path='/' element={ 메인 페이지 html ~~ } />
+                <Route path='/detail' element={ <div>상세 페이지</div> } />
+            </Routes>
+        </>
+    )
+}
+```
+- 라우팅을 위해서는 Routes > Route component에 각 url path를 정의해주고, element 에 해당 url에서 표시될 html을 넣어준다
+- 위와 같이 정의한 url을 직접 주소창에 기입하지 않고 링크를 통해 이동하기 위해서는 Link component를 사용하면 된다
+    - (참고) React Bootstrap Nav componenet에서도 같은 기능으로 Nav.Link component가 있다
+
+
 
 
