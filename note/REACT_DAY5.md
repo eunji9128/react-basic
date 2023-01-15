@@ -60,6 +60,7 @@ function App(){
             <Routes>
                 <Route path='/' element={ 메인 페이지 html ~~ } />
                 <Route path='/detail' element={ <div>상세 페이지</div> } />
+                <Route path='*' element={ <div>없는 페이지</div> } />
             </Routes>
         </>
     )
@@ -69,6 +70,56 @@ function App(){
 - 위와 같이 정의한 url을 직접 주소창에 기입하지 않고 링크를 통해 이동하기 위해서는 Link component를 사용하면 된다
     - (참고) React Bootstrap Nav componenet에서도 같은 기능으로 Nav.Link component가 있다
 
+### nested routes
+```js
+function App() {
+    return (
+        <>
+            <Routes>
+                <Route path='/about' element={ <About/> }>
+                    <Route path='member' element={ <div>members</div> }/>
+                    <Route path='location' element={ <div>location</div> }/>
+                </Route>
+            </Routes>
+        </>
+    )
+}
+```
+```js
+// (About.js file)
+import { Outlet } from 'react-router-dom';
 
+function About() {
+    return (
+        <div>
+            <h4>About pages</h4>
+            <Outlet></Outlet>
+        </div>
+    )
+}
+```
+- Route > Route componenet 로 nested routes 형태를 만들면 /about/member 등 하위 페이지를 구축할 수 있다
+- 이 때 하위 페이지가 랜더링될 위치를 Outlet componenet로 부모 Route component에 작성해 주어야 한다
+
+### useNavigate()
+```js
+import { useNavigate } from 'react-router-dom';
+
+function App() {
+    let navigate = useNavigate();
+    
+    return (
+        <>
+            <button onClick={() => { navigate('/detail') }}>이동버튼</button>
+            <button onClick={() => { navigate(-1) }}>뒤로가기</button>
+            <button onClick={() => { navigate(2) }}>앞으로2번가기</button>
+        </>
+    )
+}
+```
+- Link 대신 useNavigate 기능을 사용하여 페이지 이동을 할 수 있다
+    - navigate('/page_name'): page_name으로 이동
+    - navigate(-1): 뒤로 가기
+    - navigate(1): 앞으로 가기
 
 
