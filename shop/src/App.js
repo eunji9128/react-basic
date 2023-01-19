@@ -31,6 +31,7 @@ function App() {
       <Routes>
         <Route path='/' element={
           <>
+
             {/* main background */}
             <div className='main-bg'></div>
 
