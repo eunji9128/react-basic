@@ -42,7 +42,7 @@ function App() {
             </Container>
           </>
         } />
-        <Route path='/detail' element={ <Detail/> } />
+        <Route path='/detail/:id' element={ <Detail products={products} /> } />
         <Route path='/about' element={ <About/> }>
           <Route path='member' element={ <div>members</div> }/>
           <Route path='location' element={ <div>location</div> }/>
