@@ -7,6 +7,7 @@ import Detail from './routes/Detail.js';
 import About from './routes/About.js';
 import Event from './routes/Event.js';
 import List from './components/List.js';
+import axios from 'axios';
 
 function App() {
   let [products, setProducts] = useState(product_data);
@@ -37,10 +38,21 @@ function App() {
 
             {/* product display */}
             <Container>
-              <Row>
                 <List products={products} />
-              </Row>
             </Container>
+            <button onClick={()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((res)=>{
+                  var copy = [...products];
+                  res.data.map(function(a,i){
+                    copy.push(a);
+                  });
+                  setProducts(copy);
+                })
+                .catch(()=>{
+                  console.log('failed');
+                })
+            }}>more products</button>
           </>
         } />
         <Route path='/detail/:id' element={ <Detail products={products} /> } />
