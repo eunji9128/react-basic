@@ -12,6 +12,23 @@ import axios from 'axios';
 function App() {
   let [products, setProducts] = useState(product_data);
   let navigate = useNavigate();
+  let [more_count, setMoreCount] = useState(1);
+  let [more_btn, setMoreBtn] = useState(true);
+
+  const MoreProduct = function () {
+    setMoreCount(more_count + 1);
+    if (more_count > 1) {
+      setMoreBtn(false);
+    };
+    axios.get(`https://codingapple1.github.io/shop/data${more_count + 1}.json`)
+      .then((res) => {
+        var copy = [...products, ...res.data];
+        setProducts(copy);
+      })
+      .catch(() => {
+        console.log('failed');
+      })
+  }
 
   return (
     <div className="App">
@@ -38,28 +55,25 @@ function App() {
 
             {/* product display */}
             <Container>
-                <List products={products} />
+              <List products={products} />
             </Container>
-            <button onClick={()=>{
-              axios.get('https://codingapple1.github.io/shop/data2.json')
-                .then((res)=>{
-                  var copy = [...products, ...res.data];
-                  setProducts(copy);
-                })
-                .catch(()=>{
-                  console.log('failed');
-                })
-            }}>more products</button>
+
+            {
+              more_btn == true
+                ? <button onClick={MoreProduct}>more products</button>
+                : null
+            }
+
           </>
         } />
-        <Route path='/detail/:id' element={ <Detail products={products} /> } />
-        <Route path='/about' element={ <About/> }>
-          <Route path='member' element={ <div>members</div> }/>
-          <Route path='location' element={ <div>location</div> }/>
+        <Route path='/detail/:id' element={<Detail products={products} />} />
+        <Route path='/about' element={<About />}>
+          <Route path='member' element={<div>members</div>} />
+          <Route path='location' element={<div>location</div>} />
         </Route>
-        <Route path='/event' element={ <Event/> }>
-          <Route path='one' element={ <div>첫 주문 시 50% 할인</div> }/>
-          <Route path='two' element={ <div>생일 기념 쿠폰 받기</div> }/>
+        <Route path='/event' element={<Event />}>
+          <Route path='one' element={<div>첫 주문 시 50% 할인</div>} />
+          <Route path='two' element={<div>생일 기념 쿠폰 받기</div>} />
         </Route>
       </Routes>
     </div>
