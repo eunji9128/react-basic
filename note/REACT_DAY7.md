@@ -17,7 +17,7 @@
     3. axios 같은 외부 라이브러리 사용
 
 ## AJAX 요청
-### axios
+### axios get
 ```js
 import axios from 'axios';
 
@@ -39,4 +39,41 @@ function App() {
 - .then((res)=>{code}): GET 요청으로 가져온 데이터를 res 변수에 저장 후 코드를 실행
     - (참고) 실제 데이터 값을 사용할 경우에는 res.data를 사용해야 한다
 - .catch(()=>{code}): GET 요청이 실패했을 경우 코드를 실행
+
+### 다중 axios get
+```js
+Promise.all( [axios.get('URL1'), axios.get('URL2')] )
+    .then((res)=>{code})
+    .catch(()=>{code})
+```
+- 2개 이상의 axios get 요청을 하기 위해서는 Promise.all([])을 사용할 수 있다
+- then, catch 문법을 붙일 수 있고, Promise.all 안의 모든 get 요청이 완료되었을 때만 then 구문이 동작한다
+
+### axios post
+```js
+axios.post('URL', {name: 'kim'})
+    .then((res)=>{code})
+    .catch(()=>{code})
+```
+- axios post 요청은 위와 같이 사용할 수 있으며, 기입한 서버 URL로 {name: 'kim'} object를 전달한다
+
+### fetch
+```js
+fetch('URL')
+    .then((res) => {res.json()})
+    .then((res) => {})
+```
+- fetch는 JS 기본 문법으로 마찬가지로 서버에 데이터 요청을 할 수 있다
+- 다만 fetch 를 사용할 때는 결과 데이터(res)를 json 변환해주어야 한다(변환은 아래 설명)
+
+
+## JSON
+### JSON
+- 서버와 데이터를 주고 받을 때는 문자 자료형만 가능하며, array/object 등의 자료형은 전송이 불가능하다
+- 이 때문에 array, object 등의 자료형은 전체를 ""로 묶어 문자 자료형으로 변환하는데, 이걸 JSON 이라고 한다
+- 따라서 위 데이터를 서버와 주고 받을 때는 JSON 변환이 필요하다
+    - (참고) axios 는 JSON 자료형을 자동으로 변환해주어 res.data 처럼 값을 사용할 수 있다
+
+
+
 
