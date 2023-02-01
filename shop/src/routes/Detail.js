@@ -6,14 +6,24 @@ function Detail(props) {
     let { id } = useParams();
     let [ event, setEvent ] = useState(true);
     let idx = props.products.findIndex((e) => e.id === parseInt(id));
-    let [ tab, setTab ] = useState(1);
+    let [ tab, setTab ] = useState(0);
+    let [ tab_fade, setTabFade ] = useState('');
+    let [ comp_fade, setCompFade ] = useState('');
 
     useEffect(() => {
         setTimeout(() => { setEvent(false) }, 5000)
+        setCompFade('end');
     })
 
+    useEffect(() => {
+        setTimeout(() => { setTabFade('end') }, 100)
+        return () => {
+            setTabFade('');
+        }
+    }, [tab])
+
     return (
-        <div className="container">
+        <div className={'container start '+ comp_fade}>
             {/* event timer */}
             {
                 event == true
@@ -46,19 +56,19 @@ function Detail(props) {
                     <Nav.Link onClick={()=>{ setTab(2) }} eventKey="link-3">Tab 3</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <TabContent tab = {tab}/>
+            <TabContent tab = {tab} tab_fade = {tab_fade}/>
         </div>
     )
 }
 
 function TabContent(props) {
-    if (props.tab == 0) {
-        return <div>content 0</div>
-    } else if (props.tab == 1) {
-        return <div>content 1</div>
-    } else if (props.tab == 2) {
-        return <div>content 2</div>
-    }
+    return (
+        <div className={'start '+ props.tab_fade}>
+            {
+                [<div>content 0</div>, <div>content 1</div>, <div>content 2</div>][props.tab]
+            }
+        </div>
+    )
 }
 
 export default Detail;
