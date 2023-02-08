@@ -1,2 +1,4 @@
-# react-study-shop
-react study - making shop project
+# React Shop Web-service demo
+
+### Description
+- 
