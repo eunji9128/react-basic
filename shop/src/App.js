@@ -1,5 +1,5 @@
 import './App.css';
-import { Navbar, Container, Nav, Row } from 'react-bootstrap';
+import { Navbar, Container, Nav, Row, Button } from 'react-bootstrap';
 import product_data from './data.js';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -38,7 +38,7 @@ function App() {
           <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail">Details</Nav.Link>
+            <Nav.Link href="/detail/0">Details</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/event">Event</Nav.Link>
           </Nav>
@@ -60,7 +60,7 @@ function App() {
 
             {
               more_btn == true
-                ? <button onClick={MoreProduct}>more products</button>
+                ? <Button variant='secondary' onClick={MoreProduct}>more products</Button>
                 : null
             }
 

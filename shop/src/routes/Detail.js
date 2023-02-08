@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Nav } from 'react-bootstrap';
+import { ListGroupItem, Nav } from 'react-bootstrap';
 
 function Detail(props) {
     let { id } = useParams();
@@ -65,7 +65,9 @@ function TabContent(props) {
     return (
         <div className={'start '+ props.tab_fade}>
             {
-                [<div>content 0</div>, <div>content 1</div>, <div>content 2</div>][props.tab]
+                [<div className="content">content 0: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti deserunt commodi molestias sequi? Nobis natus, magnam debitis nisi quo eos odit? Dicta mollitia quo repellat aspernatur. Natus molestiae debitis veritatis.</div>, 
+                <div className="content">content 1: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti deserunt commodi molestias sequi? Nobis natus, magnam debitis nisi quo eos odit? Dicta mollitia quo repellat aspernatur. Natus molestiae debitis veritatis.</div>, 
+                <div className="content">content 2: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti deserunt commodi molestias sequi? Nobis natus, magnam debitis nisi quo eos odit? Dicta mollitia quo repellat aspernatur. Natus molestiae debitis veritatis.</div>][props.tab]
             }
         </div>
     )
