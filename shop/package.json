@@ -21,6 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "http://eunji9128.github.io/",
   "eslintConfig": {
     "extends": [
       "react-app",
