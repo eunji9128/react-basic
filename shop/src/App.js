@@ -2,7 +2,7 @@ import './App.css';
 import { Navbar, Container, Nav, Row, Button } from 'react-bootstrap';
 import product_data from './data.js';
 import { useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Detail from './routes/Detail.js';
 import About from './routes/About.js';
 import Event from './routes/Event.js';
@@ -32,50 +32,51 @@ function App() {
 
   return (
     <div className="App">
-      {/* navbar */}
-      <Navbar bg="light" variant="light">
-        <Container>
-          <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail/0">Details</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/event">Event</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+        {/* navbar */}
+        <Navbar bg="light" variant="light">
+          <Container>
+            <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
+              <Nav.Link onClick={()=>{navigate('/detail/0')}}>Detail</Nav.Link>
+              <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
+              <Nav.Link onClick={()=>{navigate('/event')}}>Event</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
 
-      {/* define routes */}
-      <Routes>
-        <Route path='/' element={
-          <>
+        {/* define routes */}
 
-            {/* main background */}
-            <div className='main-bg'></div>
+        <Routes>
+          <Route path='/' element={
+            <>
 
-            {/* product display */}
-            <Container>
-              <List products={products} />
-            </Container>
+              {/* main background */}
+              <div className='main-bg'></div>
 
-            {
-              more_btn == true
-                ? <Button variant='secondary' onClick={MoreProduct}>more products</Button>
-                : null
-            }
+              {/* product display */}
+              <Container>
+                <List products={products} />
+              </Container>
 
-          </>
-        } />
-        <Route path='/detail/:id' element={<Detail products={products} />} />
-        <Route path='/about' element={<About />}>
-          <Route path='member' element={<div>members</div>} />
-          <Route path='location' element={<div>location</div>} />
-        </Route>
-        <Route path='/event' element={<Event />}>
-          <Route path='one' element={<div>첫 주문 시 50% 할인</div>} />
-          <Route path='two' element={<div>생일 기념 쿠폰 받기</div>} />
-        </Route>
-      </Routes>
+              {
+                more_btn == true
+                  ? <Button variant='secondary' onClick={MoreProduct}>more products</Button>
+                  : null
+              }
+
+            </>
+          } />
+          <Route path='/detail/:id' element={<Detail products={products} />} />
+          <Route path='/about' element={<About />}>
+            <Route path='member' element={<div>members</div>} />
+            <Route path='location' element={<div>location</div>} />
+          </Route>
+          <Route path='/event' element={<Event />}>
+            <Route path='one' element={<div>첫 주문 시 50% 할인</div>} />
+            <Route path='two' element={<div>생일 기념 쿠폰 받기</div>} />
+          </Route>
+        </Routes>
     </div>
 
   );
